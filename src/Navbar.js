@@ -5,11 +5,14 @@ import { FaBars } from 'react-icons/fa'
 import { useGlobalContext } from "./context";
 
 const Navbar = () => {
-  const {openNavBar,sublinks} = useGlobalContext();
+  const {openNavBar,openSubmenu,closeSubmenu} = useGlobalContext();
 
+  const displaySubmenu = (e) => {
+    const text = e.target.textContent
+    openSubmenu(text);
+  }
   return (
-    <nav className="nav">
-      
+		<nav className="nav">
 			<div className="nav-center">
 				<div className="nav-header">
 					<img src={logo} alt="Logo" />
@@ -17,17 +20,41 @@ const Navbar = () => {
 						<FaBars />
 					</button>
 				</div>
-      </div>
-      
+			</div>
+
 			<ul className="nav-links">
-				{sublinks.map((list) => (
-					<li>
-						<button className="link-btn">{list.page}</button>
-					</li>
-				))}
-      </ul>
-      
-			{/* <button className="btn signin-btn">Sign in</button> */}
+				<li>
+					<button
+						className="link-btn"
+						onMouseOver={displaySubmenu}
+						// onMouseLeave={closeSubmenu}
+					>
+						products
+					</button>
+				</li>
+				<li>
+					<button
+						className="link-btn"
+						onMouseOver={displaySubmenu}
+						// onMouseLeave={closeSubmenu}
+					>
+						developers
+					</button>
+				</li>
+				<li>
+					<button
+						className="link-btn"
+						onMouseOver={displaySubmenu}
+						// onMouseLeave={closeSubmenu}
+					>
+						company
+					</button>
+				</li>
+			</ul>
+
+			<button className="btn signin-btn" onMouseOver={openSubmenu}>
+				Sign in
+			</button>
 		</nav>
 	);
 }
